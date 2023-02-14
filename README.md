@@ -36,3 +36,12 @@
 │   └── visualization  <- Scripts to create exploratory and results oriented visualizations
 │       └── visualize.py
 ```
+
+
+Note : 
+- Odd ratios method can improve word cloud
+- Rapport :
+    - Impact du cleaning
+    - Variante de BoW
+    - Comment les traitements varie en fonction des deux tache
+- PoS facultatif
