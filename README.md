@@ -53,3 +53,4 @@ TODO :
 [] Implémenter filtre des nombres dans data.py/Custom_analyzer()
 [] Implémenter filtre de la ponctuation dans data.py/Custom_analyzer()
 [] Transferer le framework de test pour Chirac/Mitterand
+[] GridSearch ?
