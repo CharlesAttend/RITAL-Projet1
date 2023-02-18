@@ -2,9 +2,8 @@ from sklearn.naive_bayes import MultinomialNB
 from sklearn.linear_model import LogisticRegression
 from sklearn.svm import LinearSVC
 from sklearn.metrics import classification_report, f1_score, roc_auc_score
-from sklearn.feature_extraction.text import CountVectorizer*
-from data import Custom_analyzer
-
+from sklearn.feature_extraction.text import CountVectorizer
+from src.data import Custom_analyzer
 
 def print_score(y_test, pred, name):
     reports = f"""
@@ -29,11 +28,11 @@ def fit_eval(X_train, y_train, X_test, y_test, balanced=None):
     nb_clf.fit(X_train, y_train)
 
     #Logistic Regression
-    lr_clf = LogisticRegression(random_state=0, solver='lbfgs',n_jobs=-1, max_iter=300, class_weight=balanced)
+    lr_clf = LogisticRegression(random_state=0, solver='lbfgs',n_jobs=-1, max_iter=10000, class_weight=balanced)
     lr_clf.fit(X_train, y_train)
 
     #Linear SVM
-    svm_clf = LinearSVC(random_state=0, tol=1e-5, max_iter=2000, class_weight=balanced)
+    svm_clf = LinearSVC(random_state=0, tol=1e-5, max_iter=20000, class_weight=balanced)
     svm_clf.fit(X_train, y_train)
 
     pred_nb = nb_clf.predict(X_test)
@@ -54,9 +53,10 @@ def eval_from_config(X_train, X_test, y_train, y_test, config_name, vectorizer_c
     ----------
     X_train: list of string
         Important : Fournir les données bruts pour pouvoir prétraiter (pas de BoW)
+
     X_test: list of string
         Important : Fournir les données bruts pour pouvoir prétraiter (pas de BoW)
-    
+
     y_train: list
         Label du train
 

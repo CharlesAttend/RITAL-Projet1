@@ -8,8 +8,6 @@ config = {
     "base_vectorizer_param": {
         "strip_accents": None,
         "lowercase": True,
-        "ponctuation": "",
-        "number": None,
         "stop_words": None,
         "token_pattern": r"(?u)\b\w\w+\b",
         "ngram_range": (1, 1),
@@ -18,6 +16,8 @@ config = {
         "max_features": None, 
         "binary": False,
     },
+    "number": None,  # Pas encore traité 
+    "ponctuation": "",  # Pas encore traité 
     "stemmer": None,
     "lemmatizer": None,
 }

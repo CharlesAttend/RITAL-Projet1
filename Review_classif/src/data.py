@@ -1,6 +1,6 @@
 import os
 import importlib
-from utils import Dotdict
+from src.utils import Dotdict
 from types import FunctionType
 from sklearn.feature_extraction.text import CountVectorizer
 
@@ -33,7 +33,7 @@ class Custom_analyzer():
             The config file name to load 
         """
         self.config = Dotdict(importlib.import_module(f'configs.{config_name}').config)
-        self.base_analyzer = CountVectorizer(**self.config.base_vectorizer_param)
+        self.base_analyzer = CountVectorizer(**self.config.base_vectorizer_param).build_analyzer()
 
     def __call__(self, doc):
         """
