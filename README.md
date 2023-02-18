@@ -1,5 +1,6 @@
-[La template du projet](https://neptune.ai/blog/how-to-structure-and-manage-nlp-projects-templates)
-
+# RITAL - Projet
+## Template
+Chaque dossier (*projet*) se base sur ce template, qui est [basé de ce site](https://neptune.ai/blog/how-to-structure-and-manage-nlp-projects-templates). 
 ```
 ├── README.md          <- The top-level README for developers using this project.
 ├── data
@@ -36,21 +37,22 @@
 │   └── visualization  <- Scripts to create exploratory and results oriented visualizations
 │       └── visualize.py
 ```
-
-
-Note : 
-- Odd ratios method can improve word cloud
+_________
+## Notes 
+- [Odds ratio (OR)](https://en.wikipedia.org/wiki/Odds_ratio) method may improve word cloud
 - Rapport :
-    - Impact du cleaning
+    - Impact du *cleaning*
     - Variante de BoW
-    - Comment les traitements varie en fonction des deux tache
-- PoS facultatif
+    - Comment les traitements varient en fonction des deux tâches ?
+- PoS *facultatif* (questions à se poser : quel intérêt ? comment l'intégrer ? (ex : *comme une feature classique ?*))
+- Trouver **le** meilleur modèle de BoW
 
-TODO : 
-[] Faire de la cross val 
-[] Faire de la viz (mais tu l'as pas mal fait avec les nuages)
-[] Faire une fonction pour écrire les résultats des expériences quelque part (classifquement le classif report)
-[] Implémenter filtre des nombres dans data.py/Custom_analyzer()
-[] Implémenter filtre de la ponctuation dans data.py/Custom_analyzer()
-[] Transferer le framework de test pour Chirac/Mitterand
-[] GridSearch ?
+_________
+## Todo
+- [] Faire de la cross-validation
+- [] Dataviz (pour que ça CLAQUE)
+- [] Faire une fonction pour écrire les résultats des expériences quelque part (classiquement le classif report)
+- [] Implémenter filtre des nombres dans `data.py/Custom_analyzer()`
+- [] Implémenter filtre de la ponctuation dans `data.py/Custom_analyzer()`
+- [] Transférer le framework de test pour Chirac/Mitterand
+- [] `GridSearch` / `Pipeline`?
