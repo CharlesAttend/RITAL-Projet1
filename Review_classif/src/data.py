@@ -20,8 +20,8 @@ def load_data(path2data="./data/raw/"): # 1 classe par répertoire
         print(os.listdir('.'))
         raise FileNotFoundError
 
-class Mixed_analyzer():
-    def __init__(self, file_name) -> None:
+class Custom_analyzer():
+    def __init__(self, config_name) -> None:
         """
         Build an analyser from a config template. 
 
@@ -29,10 +29,10 @@ class Mixed_analyzer():
 
         Parameters
         ----------
-        file_name : str, default=None
+        config_name : str, default=None
             The config file name to load 
         """
-        self.config = Dotdict(importlib.import_module(f'configs.{file_name}').config)
+        self.config = Dotdict(importlib.import_module(f'configs.{config_name}').config)
         self.base_analyzer = CountVectorizer(**self.config.base_vectorizer_param)
 
     def __call__(self, doc):
