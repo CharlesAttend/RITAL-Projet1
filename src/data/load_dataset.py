@@ -1,10 +1,10 @@
 import codecs
 import re
 
-def load_dataset():
+def load_dataset(path="../data/raw/corpus.tache1.learn.utf8"):
     alltxts = []
     alllabs = []
-    s = codecs.open("../data/raw/corpus.tache1.learn.utf8", 'r','utf-8') # pour régler le codage
+    s = codecs.open(path, 'r','utf-8') # pour régler le codage
     while True:
         txt = s.readline()
         if(len(txt))<5:
