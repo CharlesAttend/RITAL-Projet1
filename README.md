@@ -45,3 +45,11 @@ Note :
     - Variante de BoW
     - Comment les traitements varie en fonction des deux tache
 - PoS facultatif
+
+TODO : 
+[] Faire de la cross val 
+[] Faire de la viz (mais tu l'as pas mal fait avec les nuages)
+[] Faire une fonction pour écrire les résultats des expériences quelque part (classifquement le classif report)
+[] Implémenter filtre des nombres dans data.py/Custom_analyzer()
+[] Implémenter filtre de la ponctuation dans data.py/Custom_analyzer()
+[] Transferer le framework de test pour Chirac/Mitterand
