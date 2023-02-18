@@ -2,7 +2,8 @@ from sklearn.naive_bayes import MultinomialNB
 from sklearn.linear_model import LogisticRegression
 from sklearn.svm import LinearSVC
 from sklearn.metrics import classification_report, f1_score, roc_auc_score
-from sklearn.feature_extraction.text import CountVectorizer
+from sklearn.feature_extraction.text import CountVectorizer*
+from data import Custom_analyzer
 
 
 def print_score(y_test, pred, name):
@@ -16,6 +17,7 @@ def print_score(y_test, pred, name):
     """
     print(name, ':')
     print(reports)
+    return reports
 
 def fit_eval(X_train, y_train, X_test, y_test, balanced=None):
     #Naïve Bayes
@@ -44,5 +46,30 @@ def fit_eval(X_train, y_train, X_test, y_test, balanced=None):
     print_score(y_test, pred_lr, 'Logistic Regression')
     print_score(y_test, pred_svm, 'SVM')
 
-def eval_from_config(config_name, vectorizer=CountVectorizer):
-    vectorizer()
+def eval_from_config(X_train, X_test, y_train, y_test, config_name, vectorizer_class=CountVectorizer):
+    """
+    Evalue avec les prétraitement de la config sur les sets de train et test fournis en paramètre
+
+    Parameters
+    ----------
+    X_train: list of string
+        Important : Fournir les données bruts pour pouvoir prétraiter (pas de BoW)
+    X_test: list of string
+        Important : Fournir les données bruts pour pouvoir prétraiter (pas de BoW)
+    
+    y_train: list
+        Label du train
+
+    y_test: list 
+        Label du test
+
+    config_name : str, default=None
+        The config file name to load 
+    
+    vectorizer_class: Submodule of sklearn.feature_extraction.text => {CountVectorizer, TfidfVectorizer, HashingVectorizer}
+        This analyser will be plug into one of the sklearn.feature_extraction.text vectorizer with the param "analyzer = Mixed_anayzer"
+    """
+    vectorizer = vectorizer_class(analyzer = Custom_analyzer(config_name))
+    X_train = vectorizer.fit_transform(X_train)
+    X_test = vectorizer.transform(X_test)
+    fit_eval(X_train, y_train, X_test, y_test)
