@@ -44,7 +44,7 @@ _________
     - Impact du *cleaning*
     - Variante de BoW
     - Comment les traitements varient en fonction des deux tâches ?
-- PoS *facultatif* (questions à se poser : quel intérêt ? comment l'intégrer ? (ex : *comme une feature classique ?*))
+- PoS *facultatif* (questions à se poser : quel intérêt ? comment l'intégrer ? (ex : *comme une feature classique ?*) => Ouii mais vaut mieux rester sur du BoW simple (source : prof))
 - Trouver **le** meilleur modèle de BoW
 
 _________
