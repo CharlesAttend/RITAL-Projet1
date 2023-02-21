@@ -1,0 +1,169 @@
+,Unnamed: 0,variable,value,Algo,configName
+0,0.0,0,0.8185483870967742,Naïve Bayes,Test1
+1,1.0,0,0.796078431372549,Naïve Bayes,Test1
+2,2.0,0,0.8071570576540755,Naïve Bayes,Test1
+3,3.0,0,255.0,Naïve Bayes,Test1
+4,4.0,1,0.7936507936507936,Naïve Bayes,Test1
+5,5.0,1,0.8163265306122449,Naïve Bayes,Test1
+6,6.0,1,0.8048289738430584,Naïve Bayes,Test1
+7,7.0,1,245.0,Naïve Bayes,Test1
+8,8.0,accuracy,0.806,Naïve Bayes,Test1
+9,9.0,accuracy,0.806,Naïve Bayes,Test1
+10,10.0,accuracy,0.806,Naïve Bayes,Test1
+11,11.0,accuracy,0.806,Naïve Bayes,Test1
+12,12.0,macro avg,0.806099590373784,Naïve Bayes,Test1
+13,13.0,macro avg,0.8062024809923969,Naïve Bayes,Test1
+14,14.0,macro avg,0.805993015748567,Naïve Bayes,Test1
+15,15.0,macro avg,500.0,Naïve Bayes,Test1
+16,16.0,weighted avg,0.8063485663082438,Naïve Bayes,Test1
+17,17.0,weighted avg,0.806,Naïve Bayes,Test1
+18,18.0,weighted avg,0.8060162965866771,Naïve Bayes,Test1
+19,19.0,weighted avg,500.0,Naïve Bayes,Test1
+20,20.0,macro_auc,0.8062024809923971,Naïve Bayes,Test1
+21,21.0,macro_auc,0.8062024809923971,Naïve Bayes,Test1
+22,22.0,macro_auc,0.8062024809923971,Naïve Bayes,Test1
+23,23.0,macro_auc,0.8062024809923971,Naïve Bayes,Test1
+24,24.0,micro_auc,0.8062024809923971,Naïve Bayes,Test1
+25,25.0,micro_auc,0.8062024809923971,Naïve Bayes,Test1
+26,26.0,micro_auc,0.8062024809923971,Naïve Bayes,Test1
+27,27.0,micro_auc,0.8062024809923971,Naïve Bayes,Test1
+28,0.0,0,0.8842975206611571,Logistic Regression,Test1
+29,1.0,0,0.8392156862745098,Logistic Regression,Test1
+30,2.0,0,0.8611670020120725,Logistic Regression,Test1
+31,3.0,0,255.0,Logistic Regression,Test1
+32,4.0,1,0.8410852713178295,Logistic Regression,Test1
+33,5.0,1,0.8857142857142857,Logistic Regression,Test1
+34,6.0,1,0.8628230616302186,Logistic Regression,Test1
+35,7.0,1,245.0,Logistic Regression,Test1
+36,8.0,accuracy,0.862,Logistic Regression,Test1
+37,9.0,accuracy,0.862,Logistic Regression,Test1
+38,10.0,accuracy,0.862,Logistic Regression,Test1
+39,11.0,accuracy,0.862,Logistic Regression,Test1
+40,12.0,macro avg,0.8626913959894933,Logistic Regression,Test1
+41,13.0,macro avg,0.8624649859943978,Logistic Regression,Test1
+42,14.0,macro avg,0.8619950318211456,Logistic Regression,Test1
+43,15.0,macro avg,500.0,Logistic Regression,Test1
+44,16.0,weighted avg,0.8631235184829266,Logistic Regression,Test1
+45,17.0,weighted avg,0.862,Logistic Regression,Test1
+46,18.0,weighted avg,0.8619784712249641,Logistic Regression,Test1
+47,19.0,weighted avg,500.0,Logistic Regression,Test1
+48,20.0,macro_auc,0.8624649859943978,Logistic Regression,Test1
+49,21.0,macro_auc,0.8624649859943978,Logistic Regression,Test1
+50,22.0,macro_auc,0.8624649859943978,Logistic Regression,Test1
+51,23.0,macro_auc,0.8624649859943978,Logistic Regression,Test1
+52,24.0,micro_auc,0.8624649859943978,Logistic Regression,Test1
+53,25.0,micro_auc,0.8624649859943978,Logistic Regression,Test1
+54,26.0,micro_auc,0.8624649859943978,Logistic Regression,Test1
+55,27.0,micro_auc,0.8624649859943978,Logistic Regression,Test1
+56,0.0,0,0.8623481781376519,SVM,Test1
+57,1.0,0,0.8352941176470589,SVM,Test1
+58,2.0,0,0.8486055776892432,SVM,Test1
+59,3.0,0,255.0,SVM,Test1
+60,4.0,1,0.83399209486166,SVM,Test1
+61,5.0,1,0.8612244897959184,SVM,Test1
+62,6.0,1,0.8473895582329317,SVM,Test1
+63,7.0,1,245.0,SVM,Test1
+64,8.0,accuracy,0.848,SVM,Test1
+65,9.0,accuracy,0.848,SVM,Test1
+66,10.0,accuracy,0.848,SVM,Test1
+67,11.0,accuracy,0.848,SVM,Test1
+68,12.0,macro avg,0.8481701364996559,SVM,Test1
+69,13.0,macro avg,0.8482593037214886,SVM,Test1
+70,14.0,macro avg,0.8479975679610874,SVM,Test1
+71,15.0,macro avg,500.0,SVM,Test1
+72,16.0,weighted avg,0.8484536973324159,SVM,Test1
+73,17.0,weighted avg,0.848,SVM,Test1
+74,18.0,weighted avg,0.8480097281556505,SVM,Test1
+75,19.0,weighted avg,500.0,SVM,Test1
+76,20.0,macro_auc,0.8482593037214887,SVM,Test1
+77,21.0,macro_auc,0.8482593037214887,SVM,Test1
+78,22.0,macro_auc,0.8482593037214887,SVM,Test1
+79,23.0,macro_auc,0.8482593037214887,SVM,Test1
+80,24.0,micro_auc,0.8482593037214887,SVM,Test1
+81,25.0,micro_auc,0.8482593037214887,SVM,Test1
+82,26.0,micro_auc,0.8482593037214887,SVM,Test1
+83,27.0,micro_auc,0.8482593037214887,SVM,Test1
+0,,0,0.8543307086614174,Naïve Bayes,Test2
+1,,0,0.8250950570342205,Naïve Bayes,Test2
+2,,0,0.8394584139264991,Naïve Bayes,Test2
+3,,0,263.0,Naïve Bayes,Test2
+4,,1,0.8130081300813008,Naïve Bayes,Test2
+5,,1,0.8438818565400844,Naïve Bayes,Test2
+6,,1,0.8281573498964804,Naïve Bayes,Test2
+7,,1,237.0,Naïve Bayes,Test2
+8,,accuracy,0.834,Naïve Bayes,Test2
+9,,accuracy,0.834,Naïve Bayes,Test2
+10,,accuracy,0.834,Naïve Bayes,Test2
+11,,accuracy,0.834,Naïve Bayes,Test2
+12,,macro avg,0.8336694193713591,Naïve Bayes,Test2
+13,,macro avg,0.8344884567871524,Naïve Bayes,Test2
+14,,macro avg,0.8338078819114898,Naïve Bayes,Test2
+15,,macro avg,500.0,Naïve Bayes,Test2
+16,,weighted avg,0.8347438064144421,Naïve Bayes,Test2
+17,,weighted avg,0.834,Naïve Bayes,Test2
+18,,weighted avg,0.8341017095762702,Naïve Bayes,Test2
+19,,weighted avg,500.0,Naïve Bayes,Test2
+20,,macro_auc,0.8344884567871524,Naïve Bayes,Test2
+21,,macro_auc,0.8344884567871524,Naïve Bayes,Test2
+22,,macro_auc,0.8344884567871524,Naïve Bayes,Test2
+23,,macro_auc,0.8344884567871524,Naïve Bayes,Test2
+24,,micro_auc,0.8344884567871524,Naïve Bayes,Test2
+25,,micro_auc,0.8344884567871524,Naïve Bayes,Test2
+26,,micro_auc,0.8344884567871524,Naïve Bayes,Test2
+27,,micro_auc,0.8344884567871524,Naïve Bayes,Test2
+0,,0,0.8196078431372549,Logistic Regression,Test2
+1,,0,0.7946768060836502,Logistic Regression,Test2
+2,,0,0.8069498069498069,Logistic Regression,Test2
+3,,0,263.0,Logistic Regression,Test2
+4,,1,0.7795918367346939,Logistic Regression,Test2
+5,,1,0.8059071729957806,Logistic Regression,Test2
+6,,1,0.7925311203319502,Logistic Regression,Test2
+7,,1,237.0,Logistic Regression,Test2
+8,,accuracy,0.8,Logistic Regression,Test2
+9,,accuracy,0.8,Logistic Regression,Test2
+10,,accuracy,0.8,Logistic Regression,Test2
+11,,accuracy,0.8,Logistic Regression,Test2
+12,,macro avg,0.7995998399359744,Logistic Regression,Test2
+13,,macro avg,0.8002919895397154,Logistic Regression,Test2
+14,,macro avg,0.7997404636408785,Logistic Regression,Test2
+15,,macro avg,500.0,Logistic Regression,Test2
+16,,weighted avg,0.800640256102441,Logistic Regression,Test2
+17,,weighted avg,0.8,Logistic Regression,Test2
+18,,weighted avg,0.8001153494929428,Logistic Regression,Test2
+19,,weighted avg,500.0,Logistic Regression,Test2
+20,,macro_auc,0.8002919895397155,Logistic Regression,Test2
+21,,macro_auc,0.8002919895397155,Logistic Regression,Test2
+22,,macro_auc,0.8002919895397155,Logistic Regression,Test2
+23,,macro_auc,0.8002919895397155,Logistic Regression,Test2
+24,,micro_auc,0.8002919895397155,Logistic Regression,Test2
+25,,micro_auc,0.8002919895397155,Logistic Regression,Test2
+26,,micro_auc,0.8002919895397155,Logistic Regression,Test2
+27,,micro_auc,0.8002919895397155,Logistic Regression,Test2
+0,,0,0.8015267175572519,SVM,Test2
+1,,0,0.7984790874524715,SVM,Test2
+2,,0,0.8,SVM,Test2
+3,,0,263.0,SVM,Test2
+4,,1,0.7773109243697479,SVM,Test2
+5,,1,0.7805907172995781,SVM,Test2
+6,,1,0.7789473684210527,SVM,Test2
+7,,1,237.0,SVM,Test2
+8,,accuracy,0.79,SVM,Test2
+9,,accuracy,0.79,SVM,Test2
+10,,accuracy,0.79,SVM,Test2
+11,,accuracy,0.79,SVM,Test2
+12,,macro avg,0.7894188209634999,SVM,Test2
+13,,macro avg,0.7895349023760247,SVM,Test2
+14,,macro avg,0.7894736842105263,SVM,Test2
+15,,macro avg,500.0,SVM,Test2
+16,,weighted avg,0.790048431586375,SVM,Test2
+17,,weighted avg,0.79,SVM,Test2
+18,,weighted avg,0.790021052631579,SVM,Test2
+19,,weighted avg,500.0,SVM,Test2
+20,,macro_auc,0.7895349023760247,SVM,Test2
+21,,macro_auc,0.7895349023760247,SVM,Test2
+22,,macro_auc,0.7895349023760247,SVM,Test2
+23,,macro_auc,0.7895349023760247,SVM,Test2
+24,,micro_auc,0.7895349023760247,SVM,Test2
+25,,micro_auc,0.7895349023760247,SVM,Test2
+26,,micro_auc,0.7895349023760247,SVM,Test2
+27,,micro_auc,0.7895349023760247,SVM,Test2
