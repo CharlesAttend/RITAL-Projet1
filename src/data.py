@@ -1,10 +1,10 @@
-import os, re
+import os, re, codecs
 import importlib
 from src.utils import DotDict
 from types import FunctionType
 from sklearn.feature_extraction.text import CountVectorizer
 
-def load_data(path2data="./data/raw/"): # 1 classe par répertoire
+def load_data_part2(path2data="./part2_review/data/raw/"): # 1 classe par répertoire
     alltxts = [] # init vide
     labs = []
     cpt = 0
@@ -19,6 +19,24 @@ def load_data(path2data="./data/raw/"): # 1 classe par répertoire
     except FileNotFoundError:
         print(os.listdir('.'))
         raise FileNotFoundError
+
+def load_data_part1(path="./part1_speaker_recognition/data/raw/corpus.tache1.learn.utf8"):
+    alltxts = []
+    alllabs = []
+    s = codecs.open(path, 'r','utf-8') # pour régler le codage
+    while True:
+        txt = s.readline()
+        if(len(txt))<5:
+            break
+        #
+        lab = re.sub(r"<[0-9]*:[0-9]*:(.)>.*","\\1",txt)
+        txt = re.sub(r"<[0-9]*:[0-9]*:.>(.*)","\\1",txt)
+        if lab.count('M') >0:
+            alllabs.append(-1)
+        else: 
+            alllabs.append(1)
+        alltxts.append(txt)
+    return alltxts, alllabs
 
 class Custom_analyzer():
     def __init__(self, config_name) -> None:

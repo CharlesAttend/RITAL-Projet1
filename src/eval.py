@@ -80,7 +80,7 @@ def fit_eval(X_train, y_train, X_test, y_test, balanced=None):
 
     return results, algo_names
 
-def eval_from_config(X_train, X_test, y_train, y_test, config_name, vectorizer_class=CountVectorizer, saveName=None):
+def eval_from_config(X_train, X_test, y_train, y_test, config_name, vectorizer_class=CountVectorizer, saveName=None, path=None):
     """
     Evalue avec les prétraitement de la config sur les sets de train et test fournis en paramètre
 
@@ -113,10 +113,12 @@ def eval_from_config(X_train, X_test, y_train, y_test, config_name, vectorizer_c
     X_test = vectorizer.transform(X_test)
     results, algo_names = fit_eval(X_train, y_train, X_test, y_test)
     if saveName != None:
+        if path == None:
+            raise ValueError('Path needed to save results')
         config = custom_ana.config
-        save_eval_and_config(config, results, algo_names, saveName)
+        save_eval_and_config(config, results, algo_names, saveName, path)
 
-def save_eval_and_config(config, results, algo_names, saveName, path='stats/'):
+def save_eval_and_config(config, results, algo_names, saveName, path):
     """
     Ajoute les résultat à la dataframe au format long situé dans path+"stats.csv"
     Save la config sous le saveName fournis en param
