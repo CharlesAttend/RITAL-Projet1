@@ -52,7 +52,7 @@ _________
 - [ ] Faire de la cross-validation
 - [ ] Dataviz (pour que ça CLAQUE)
 - [X] Faire une fonction pour écrire les résultats des expériences quelque part (classiquement le classif report)
-- [ ] Implémenter filtre des nombres dans `data.py/Custom_analyzer()`
-- [ ] Implémenter filtre de la ponctuation dans `data.py/Custom_analyzer()`
+- [X] Implémenter filtre des nombres dans `data.py/Custom_analyzer()`
+- [X] Implémenter filtre de la ponctuation dans `data.py/Custom_analyzer()`
 - [ ] Transférer le framework de test pour Chirac/Mitterand
 - [ ] `GridSearch` / `Pipeline`?
