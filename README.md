@@ -54,5 +54,5 @@ _________
 - [X] Faire une fonction pour écrire les résultats des expériences quelque part (classiquement le classif report)
 - [X] Implémenter filtre des nombres dans `data.py/Custom_analyzer()`
 - [X] Implémenter filtre de la ponctuation dans `data.py/Custom_analyzer()`
-- [X] Transférer le framework de test pour Chirac/Mitterand
+- [ ] Transférer le framework de test pour Chirac/Mitterand
 - [ ] `GridSearch` / `Pipeline`?
