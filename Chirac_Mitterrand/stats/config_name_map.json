@@ -1,0 +1,25 @@
+{
+    "Test1": {
+        "base_vectorizer_param": {
+            "strip_accents": null,
+            "lowercase": true,
+            "stop_words": null,
+            "token_pattern": "(?u)\\b\\w\\w+\\b",
+            "ngram_range": [
+                1,
+                1
+            ],
+            "max_df": 1.0,
+            "min_df": 1,
+            "max_features": null,
+            "binary": false
+        },
+        "number": {
+            "regex": "\\-?\\d{1,10}(?:\\.\\d{1,10})?",
+            "replacement": "NUMBER"
+        },
+        "ponctuation": "!\"#$%&'()*+,-./:;<=>?@[\\]^_`{|}~",
+        "stemmer": null,
+        "lemmatizer": null
+    }
+}
