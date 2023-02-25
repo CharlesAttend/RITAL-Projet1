@@ -1,3 +1,5 @@
+import string
+
 def lemmatizer():
     pass
 
@@ -16,8 +18,11 @@ config = {
         "max_features": None, 
         "binary": False,
     },
-    "number": None,  # Pas encore traité 
-    "ponctuation": "",  # Pas encore traité 
+    "number": {
+        "regex": "\-?\d{1,10}(?:\.\d{1,10})?",    # plus simple je prends
+        "replacement": "NUMBER",
+    },  # Dictionnaire ou None
+    "ponctuation": string.punctuation, # '!"#$%&\'()*+,-./:;<=>?@[\\]^_`{|}~'
     "stemmer": None,
     "lemmatizer": None,
 }

@@ -1,6 +1,6 @@
-import os
+import os, re
 import importlib
-from src.utils import Dotdict
+from src.utils import DotDict
 from types import FunctionType
 from sklearn.feature_extraction.text import CountVectorizer
 
@@ -32,7 +32,7 @@ class Custom_analyzer():
         config_name : str, default=None
             The config file name to load 
         """
-        self.config = Dotdict(importlib.import_module(f'configs.{config_name}').config)
+        self.config = DotDict(importlib.import_module(f'configs.{config_name}').config)
         self.base_analyzer = CountVectorizer(**self.config.base_vectorizer_param).build_analyzer()
 
     def __call__(self, doc):
@@ -53,8 +53,12 @@ class Custom_analyzer():
         # Ici il preprocess + tokenise à partir du baseVectorizer
         # * strip accent
         # * Stop word
+        if self.config.number != None:
+            doc = re.sub(self.config.number.regex, self.config.number.replacement, doc)
+        if self.config.ponctuation != None:
+            doc = doc.strip(self.config.ponctuation)
         tokenized_list = self.base_analyzer(doc)
-    
+
         # Stemming
         if callable(self.config.stemmer):
             return [self.config.stemmer(w) for w in tokenized_list]
