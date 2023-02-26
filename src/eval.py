@@ -33,17 +33,17 @@ def print_score(y_test, pred, name):
     return classif_report
 
 
-def fit_eval(X_train, y_train, X_test, y_test, balanced=None):
+def fit_eval(X_train, y_train, X_test, y_test, balanced=False):
     """
-    Fit et évalue les algorithmes classiques de classification à partir des jeux de
-    données en paramètres
+    Entraine et évalue les algorithmes classiques de classification à partir des 
+    différents sets de données.
 
     Parameters
     ----------
-    X_train: Sparce Matrix
+    X_train: Sparse Matrix
         Important : Une matrice BoW est attendu
 
-    X_test: Sparce Matrix
+    X_test: Sparse Matrix
         Important : Une matrice BoW est attendu
 
     y_train: list
@@ -55,7 +55,7 @@ def fit_eval(X_train, y_train, X_test, y_test, balanced=None):
     balanced: bool
     """
     # Naïve Bayes
-    if balanced is None:
+    if not balanced:
         nb_clf = MultinomialNB()
     else:
         balanced = "balanced"
@@ -98,8 +98,8 @@ def eval_from_config(
     path=None,
 ):
     """
-    Evalue avec les prétraitement de la config sur les sets de train et test fournis en
-    paramètre
+    Evalue avec les prétraitements de la config sur les sets de train et test fournis en
+    paramètres.
 
     Parameters
     ----------
@@ -121,26 +121,30 @@ def eval_from_config(
     vectorizer_class: Submodule of sklearn.feature_extraction.text
         {CountVectorizer, TfidfVectorizer, HashingVectorizer}
         This analyser will be plug into one of the sklearn.feature_extraction.text
-        vectorizer with the param "analyzer = Mixed_anayzer"
+        vectorizer with the param "analyzer=mixed_analyzer"
 
     save_name: str
-        If not None, save result and config under this name
+        Filename used to save the results and config
+
+    path: str
+        Path where the results should be saved.
     """
     custom_analyzer = CustomAnalyzer(config_name)
     vectorizer = vectorizer_class(analyzer=custom_analyzer)
     X_train = vectorizer.fit_transform(X_train)
     X_test = vectorizer.transform(X_test)
     results, algo_names = fit_eval(X_train, y_train, X_test, y_test)
-    if save_name is None or path is None:
-        raise ValueError("Filename or path needed to save results.")
-    config = custom_analyzer.config
-    save_eval_and_config(config, results, algo_names, save_name, path)
+    if save_name is not None:
+        if path is None:
+            raise ValueError("Path needed to store results.")
+        config = custom_analyzer.config
+        save_eval_and_config(config, results, algo_names, save_name, path)
 
 
 def save_eval_and_config(config, results, algo_names, save_name, path):
     """
-    Ajoute les résultat à la dataframe au format long situé dans path + "stats.csv".
-    Save la config sous le save_name fournis en paramètre.
+    Ajoute les résultats à la dataframe au format long situé dans path + "stats.csv".
+    Save la config sous le save_name fourni en paramètre.
 
     Parameters
     ----------
