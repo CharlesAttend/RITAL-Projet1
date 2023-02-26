@@ -5,51 +5,50 @@ from types import FunctionType
 from sklearn.feature_extraction.text import CountVectorizer
 
 
-def load_data_part2(path2data="./part2_review/data/raw/"):  # 1 classe par répertoire
-    alltxts = []  # init vide
-    labs = []
-    cpt = 0
+def load_data_part1(
+    path="./part1_speaker_recognition/data/raw/corpus.tache1.learn.utf8",
+):
+    corpus = []
+    classes = []
+    f = codecs.open(path, "r", "utf-8")  # pour régler le codage
+    while True:
+        texte = f.readline()
+        if (len(texte)) < 5:
+            break
+        label = re.sub(r"<\d*:\d*:(.)>.*", "\\1", texte)
+        texte = re.sub(r"<\d*:\d*:.>(.*)", "\\1", texte)
+        if label.count("M") > 0:
+            classes.append(-1)
+        else:
+            classes.append(1)
+        corpus.append(texte)
+    return corpus, classes
+
+
+def load_data_part2(path="./part2_review/data/raw/"):
+    corpus = []
+    classes = []
+    label = 0
     try:
-        for cl in os.listdir(path2data):  # parcours des fichiers d'un répertoire
-            for f in os.listdir(path2data + cl):
-                txt = open(path2data + cl + "/" + f).read()
-                alltxts.append(txt)
-                labs.append(cpt)
-            cpt += 1  # chg répertoire = cht classe
-        return alltxts, labs
+        for cl in os.listdir(path):  # parcours des fichiers d'un répertoire
+            for f in os.listdir(path + cl):
+                txt = open(path + cl + "/" + f).read()
+                corpus.append(txt)
+                classes.append(label)
+            label += 1  # changer de répertoire <=> changement de classe
+        return corpus, classes
     except FileNotFoundError:
         print(os.listdir("."))
         raise FileNotFoundError
 
 
-def load_data_part1(
-    path="./part1_speaker_recognition/data/raw/corpus.tache1.learn.utf8",
-):
-    alltxts = []
-    alllabs = []
-    s = codecs.open(path, "r", "utf-8")  # pour régler le codage
-    while True:
-        txt = s.readline()
-        if (len(txt)) < 5:
-            break
-        #
-        lab = re.sub(r"<[0-9]*:[0-9]*:(.)>.*", "\\1", txt)
-        txt = re.sub(r"<[0-9]*:[0-9]*:.>(.*)", "\\1", txt)
-        if lab.count("M") > 0:
-            alllabs.append(-1)
-        else:
-            alllabs.append(1)
-        alltxts.append(txt)
-    return alltxts, alllabs
-
-
-class Custom_analyzer:
+class CustomAnalyzer:
     def __init__(self, config_name) -> None:
         """
         Build an analyser from a config template.
 
         This analyser will be plug into one of the sklearn.feature_extraction.text
-        vectorizer with the param "analyzer = Mixed_anayzer"
+        vectorizer through the parameter "analyzer=MixedAnalyzer"
 
         Parameters
         ----------
@@ -63,20 +62,21 @@ class Custom_analyzer:
 
     def __call__(self, doc):
         """
-        Stem avec nltk + regarde les stopwords
+        Preprocess, tokenize and stemming with nltk.
+        Look at stopwords.
+
+        Preprocessing :
+            Takes an entire document as input (as a single string), and returns a
+            possibly transformed version of the document, still as an entire string.
+            This can be used to remove HTML tags, lowercase the entire document, etc.
+            preprocess_doc = preprocess(doc)
+
+        Tokenizer :
+            a callable that takes the output from the preprocessor
+            and splits it into tokens, then returns a list of these.
+
+        N-gram extraction and stop word filtering take place at the analyzer level
         """
-        # Preprocessing :
-        #   Takes an entire document as input (as a single string), and returns a
-        #   possibly transformed version of the document, still as an entire string.
-        #   This can be used to remove HTML tags, lowercase the entire document, etc.
-        # preprocess_doc = preprocess(doc)
-
-        # Tokenizer :
-        #   a callable that takes the output from the preprocessor
-        #   and splits it into tokens, then returns a list of these.
-
-        # N-gram extraction and stop word filtering take place at the analyzer level
-
         # Ici il preprocess + tokenise à partir du baseVectorizer
         # * strip accent
         # * Stop word

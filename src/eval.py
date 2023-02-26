@@ -3,7 +3,7 @@ from sklearn.linear_model import LogisticRegression
 from sklearn.svm import LinearSVC
 from sklearn.metrics import classification_report, f1_score, roc_auc_score
 from sklearn.feature_extraction.text import CountVectorizer
-from src.data import Custom_analyzer
+from src.data import CustomAnalyzer
 import pandas as pd
 import json, os
 
@@ -35,8 +35,8 @@ def print_score(y_test, pred, name):
 
 def fit_eval(X_train, y_train, X_test, y_test, balanced=None):
     """
-    Fit et évalue les algo classique de classification sur les jeux de données envoyé
-    en paramètre
+    Fit et évalue les algorithmes classiques de classification à partir des jeux de
+    données en paramètres
 
     Parameters
     ----------
@@ -47,16 +47,15 @@ def fit_eval(X_train, y_train, X_test, y_test, balanced=None):
         Important : Une matrice BoW est attendu
 
     y_train: list
-        Label du train
+        Label des données de train
 
     y_test: list
-        Label du test
+        Label des données de test
 
     balanced: bool
-
     """
     # Naïve Bayes
-    if balanced == None:
+    if balanced is None:
         nb_clf = MultinomialNB()
     else:
         balanced = "balanced"
@@ -95,7 +94,7 @@ def eval_from_config(
     y_test,
     config_name,
     vectorizer_class=CountVectorizer,
-    saveName=None,
+    save_name=None,
     path=None,
 ):
     """
@@ -124,25 +123,24 @@ def eval_from_config(
         This analyser will be plug into one of the sklearn.feature_extraction.text
         vectorizer with the param "analyzer = Mixed_anayzer"
 
-    saveName: str
+    save_name: str
         If not None, save result and config under this name
     """
-    custom_ana = Custom_analyzer(config_name)
-    vectorizer = vectorizer_class(analyzer=custom_ana)
+    custom_analyzer = CustomAnalyzer(config_name)
+    vectorizer = vectorizer_class(analyzer=custom_analyzer)
     X_train = vectorizer.fit_transform(X_train)
     X_test = vectorizer.transform(X_test)
     results, algo_names = fit_eval(X_train, y_train, X_test, y_test)
-    if saveName != None:
-        if path == None:
-            raise ValueError("Path needed to save results")
-        config = custom_ana.config
-        save_eval_and_config(config, results, algo_names, saveName, path)
+    if save_name is None or path is None:
+        raise ValueError("Filename or path needed to save results.")
+    config = custom_analyzer.config
+    save_eval_and_config(config, results, algo_names, save_name, path)
 
 
-def save_eval_and_config(config, results, algo_names, saveName, path):
+def save_eval_and_config(config, results, algo_names, save_name, path):
     """
-    Ajoute les résultat à la dataframe au format long situé dans path+"stats.csv"
-    Save la config sous le saveName fournis en param
+    Ajoute les résultat à la dataframe au format long situé dans path + "stats.csv".
+    Save la config sous le save_name fournis en paramètre.
 
     Parameters
     ----------
@@ -157,7 +155,7 @@ def save_eval_and_config(config, results, algo_names, saveName, path):
         Comme results est un tuple de résultat pour chaque algo, ce paramètre permet de
         nommer les algos dans l'ordre
 
-    saveName:
+    save_name:
         Le nom court pour la config associé, il doit être unique par rapport à un
         précédent, sous peine de remplacer la config de l'ancien
 
@@ -176,14 +174,14 @@ def save_eval_and_config(config, results, algo_names, saveName, path):
             content, dict
         ), "Problème avec le format du json, il faut un dictionnaire à la racine"
 
-    # Checking if this saveName is not already used
-    if content.get(saveName, None) != None:
-        raise ValueError("Save Name already used")
+    # Checking if the save_name is not already used
+    if content.get(save_name, None) is not None:
+        raise ValueError("Filename is already used.")
 
     # Rewrite
     with open(path + "config_name_map.json", "w") as f:
         # Append
-        content[saveName] = config
+        content[save_name] = config
         # Rewrite
         json.dump(content, f, indent=4)
 
@@ -196,6 +194,6 @@ def save_eval_and_config(config, results, algo_names, saveName, path):
     for result, name in zip(results, algo_names):
         tmp = pd.DataFrame(result).melt()
         tmp["Algo"] = [name for _ in range(len(tmp))]
-        tmp["configName"] = saveName
+        tmp["configName"] = save_name
         df = pd.concat([df, tmp])
     df.to_csv(path + "stats.csv")
