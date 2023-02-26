@@ -19,10 +19,10 @@ config = {
         "binary": False,
     },
     "number": {
-        "regex": "\-?\d{1,10}(?:\.\d{1,10})?",    # plus simple je prends
+        "regex": "-?\d+((,|\.)\d+)?", 
         "replacement": "NUMBER",
     },  # Dictionnaire ou None
-    "ponctuation": string.punctuation, # '!"#$%&\'()*+,-./:;<=>?@[\\]^_`{|}~'
+    "ponctuation": string.punctuation,  # !"#$%&\'()*+,-./:;<=>?@[\\]^_`{|}~
     "stemmer": None,
     "lemmatizer": None,
 }
