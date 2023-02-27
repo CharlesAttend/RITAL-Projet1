@@ -33,7 +33,7 @@ def print_score(y_test, pred, name):
     return classif_report
 
 
-def fit_eval(X_train, y_train, X_test, y_test, balanced=False):
+def fit_eval(X_train, y_train, X_test, y_test, balanced=None):
     """
     Entraine et évalue les algorithmes classiques de classification à partir des 
     différents sets de données.
@@ -52,10 +52,10 @@ def fit_eval(X_train, y_train, X_test, y_test, balanced=False):
     y_test: list
         Label des données de test
 
-    balanced: bool
+    balanced: None ou autre
     """
     # Naïve Bayes
-    if not balanced:
+    if balanced is None:
         nb_clf = MultinomialNB()
     else:
         balanced = "balanced"
