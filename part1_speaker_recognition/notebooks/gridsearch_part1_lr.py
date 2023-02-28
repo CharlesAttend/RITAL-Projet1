@@ -22,7 +22,7 @@ from sklearn.svm import LinearSVC
 
 nltk.download("stopwords")
 
-def load_speaker(path="../data/raw/corpus.tache1.learn.utf8"):
+def load_speaker(path="./data/raw/corpus.tache1.learn.utf8"):
     corpus = []
     classes = []
     f = codecs.open(path, "r", "utf-8")  # pour régler le codage
@@ -55,7 +55,7 @@ pipeline = Pipeline(
     [
         ("vect", CountVectorizer()),
         ("tfidf", TfidfTransformer()),
-        ("lr", LogisticRegression(solver="saga", max_iter=10000)),
+        ("lr", LogisticRegression(max_iter=000)),
     ]
 )
 
@@ -74,7 +74,7 @@ parameters = {
     "tfidf__norm": (None, "l1", "l2"),
     "tfidf__smooth_idf": (True, False),
     "tfidf__sublinear_tf": (False, True),
-    "lr__penalty": ("l1", "l2", "elasticnet", None),
+    "lr__penalty": ("l2", None),
     "lr__class_weight": (None, "balanced"),
 }
 
