@@ -62,9 +62,9 @@ pipeline = Pipeline(
 # uncommenting more parameters will give better exploring power but will
 # increase processing time in a combinatorial way
 parameters = {
-    "vect__min_df": (0.05, 0.1, 0.2, 0.5),
+    "vect__min_df": (0.05, 0.15, 1),
     "vect__max_df": (0.5, 0.75, 1.0),
-    "vect__max_features": (None, 5000, 10000, 50000),
+    "vect__max_features": (None, 10000, 100000),
     "vect__lowercase": (False, True),
     "vect__strip_accents": (None, "unicode"),
     "vect__stop_words": (None, stopwords.words("french")),
@@ -74,9 +74,8 @@ parameters = {
     "tfidf__norm": (None, "l1", "l2"),
     "tfidf__smooth_idf": (True, False),
     "tfidf__sublinear_tf": (False, True),
-    "nb__alpha": (0, 0.1, 0.5, 1.0),
+    "nb__alpha": (0.25, 1.0, 1.75),
     "nb__fit_prior": (True, False),
-    # "svm__class_weight": (None, "balanced"),
 }
 
 if __name__ == "__main__":
@@ -89,7 +88,7 @@ if __name__ == "__main__":
         pipeline,
         parameters,
         n_jobs=-1,
-        verbose=3,
+        verbose=10,
         scoring="roc_auc",
     )
 

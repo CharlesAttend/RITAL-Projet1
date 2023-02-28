@@ -22,7 +22,7 @@ from sklearn.svm import LinearSVC
 
 nltk.download("stopwords")
 
-def load_speaker(path="./data/raw/corpus.tache1.learn.utf8"):
+def load_speaker(path="../data/raw/corpus.tache1.learn.utf8"):
     corpus = []
     classes = []
     f = codecs.open(path, "r", "utf-8")  # pour régler le codage
@@ -55,16 +55,16 @@ pipeline = Pipeline(
     [
         ("vect", CountVectorizer()),
         ("tfidf", TfidfTransformer()),
-        ("lr", LogisticRegression(solver="saga")),
+        ("lr", LogisticRegression(solver="saga", max_iter=10000)),
     ]
 )
 
 # uncommenting more parameters will give better exploring power but will
 # increase processing time in a combinatorial way
 parameters = {
-    "vect__min_df": (0.05, 0.1, 0.2, 0.5),
+    "vect__min_df": (0.05, 0.15, 1),
     "vect__max_df": (0.5, 0.75, 1.0),
-    "vect__max_features": (None, 5000, 10000, 50000),
+    "vect__max_features": (None, 10000, 100000),
     "vect__lowercase": (False, True),
     "vect__strip_accents": (None, "unicode"),
     "vect__stop_words": (None, stopwords.words("french")),
@@ -76,9 +76,6 @@ parameters = {
     "tfidf__sublinear_tf": (False, True),
     "lr__penalty": ("l1", "l2", "elasticnet", None),
     "lr__class_weight": (None, "balanced"),
-    "lr__max_iter": (100, 1000, 10000)
-    
-    # "svm__class_weight": (None, "balanced"),
 }
 
 if __name__ == "__main__":
@@ -91,7 +88,7 @@ if __name__ == "__main__":
         pipeline,
         parameters,
         n_jobs=-1,
-        verbose=3,
+        verbose=10,
         scoring="roc_auc",
     )
 
@@ -110,5 +107,5 @@ if __name__ == "__main__":
     for param_name in sorted(parameters.keys()):
         print("\t%s: %r" % (param_name, best_parameters[param_name]))
 
-    joblib.dump(grid_search, 'part1_nb.pkl')
+    joblib.dump(grid_search, 'part1_lr.pkl')
 
