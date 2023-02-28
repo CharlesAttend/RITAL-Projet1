@@ -55,7 +55,7 @@ pipeline = Pipeline(
     [
         ("vect", CountVectorizer()),
         ("tfidf", TfidfTransformer()),
-        ("lr", LogisticRegression(max_iter=000)),
+        ("lr", LogisticRegression(max_iter=10000)),
     ]
 )
 
