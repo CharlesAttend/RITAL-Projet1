@@ -21,16 +21,16 @@ from sklearn.model_selection import HalvingRandomSearchCV
 
 # nltk.download("stopwords")
 
-X, y = load_data_part1(
-    "../part1_speaker_recognition/data/raw/corpus.tache1.learn.utf8"
-)
+# X, y = load_data_part1(
+#     "../part1_speaker_recognition/data/raw/corpus.tache1.learn.utf8"
+# )
+X, y = load_data_part2("../part2_review/data/raw/")
+
 classes = np.unique(y)
 weights = {
     classes[0]: len(y[y == classes[0]]) / len(X),
     classes[1]: len(y[y == classes[1]]) / len(X),
 }
-
-# X, y = load_data_part2()
 
 ## Define pipelines, default one combines text features extractors
 def make_default_pipeline():
@@ -65,7 +65,7 @@ def make_default_parameters():
         ),
         "vect__lowercase": (False, True),
         "vect__strip_accents": (None, "unicode"),
-        "vect__stop_words": (None, stopwords.words("french")),
+        "vect__stop_words": (None, stopwords.words("english")),
         "vect__ngram_range": ((1, 1), (1, 2), (2, 2), (2, 3), (3, 3)),
         "vect__binary": (True, False),
         "tfidf__use_idf": (True, False),
@@ -130,7 +130,7 @@ classifiers = [
 
 if __name__ == "__main__":
     # multiprocessing requires the fork to happen in a __main__ protected block
-
+    scores = {}
     for model in classifiers:
         pipeline = make_default_pipeline()
         make_pipeline(pipeline, model)
@@ -144,7 +144,12 @@ if __name__ == "__main__":
             scoring="roc_auc",
         )
         searchcv.fit(X, y)
+        scores[model.__name__] = searchcv.best_score_
         ## On save
-        path = "../part1_speaker_recognition/gridsearch/results/part1_hrscv_"
+        # path = "../part1_speaker_recognition/gridsearch/results/part1_hrscv_"
+        path = "../part2_review/gridsearch/results/part2_hrscv_"
         filename = path + model.__name__ + ".pkl"
-        joblib.dump(searchcv, filename)
+        # joblib.dump(searchcv, filename)
+
+    print()
+    print(scores)
