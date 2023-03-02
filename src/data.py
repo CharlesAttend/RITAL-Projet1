@@ -1,6 +1,7 @@
 import os, re, codecs
 import importlib
-from src.utils import DotDict
+import numpy as np
+from utils import DotDict
 from types import FunctionType
 from sklearn.feature_extraction.text import CountVectorizer
 
@@ -22,7 +23,7 @@ def load_data_part1(
         else:
             classes.append(1)
         corpus.append(texte)
-    return corpus, classes
+    return np.array(corpus), np.array(classes)
 
 
 def load_data_part2(path="./part2_review/data/raw/"):
@@ -36,7 +37,7 @@ def load_data_part2(path="./part2_review/data/raw/"):
                 corpus.append(txt)
                 classes.append(label)
             label += 1  # changer de répertoire <=> changement de classe
-        return corpus, classes
+        return np.array(corpus), np.array(classes)
     except FileNotFoundError:
         print(os.listdir("."))
         raise FileNotFoundError
