@@ -1,0 +1,11 @@
+# Plan détaillé 
+- Prétraitement ??? à tester nan ?
+- création d'un "framework" de test 
+    - explication de ce qu'il faisait
+- En faite on peut l'automatiser avec les pipeline
+    - GridSearch mais beaucoup trop long 
+        - SSH sur les pc 
+        - **Ajoute plus de détail maybe**
+    - Gridsearch mais plus rapide, mais toujours pas suffisant  
+        - 
+    - **Je connais plus l'histoire à partir de là** :sob:
