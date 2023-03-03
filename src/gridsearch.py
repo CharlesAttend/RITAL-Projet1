@@ -21,10 +21,8 @@ from sklearn.model_selection import HalvingRandomSearchCV
 
 # nltk.download("stopwords")
 
-# X, y = load_data_part1(
-#     "../part1_speaker_recognition/data/raw/corpus.tache1.learn.utf8"
-# )
-X, y = load_data_part2("../part2_review/data/raw/")
+X, y = load_data_part1("../part1_speaker_recognition/data/raw/corpus.tache1.learn.utf8")
+# X, y = load_data_part2("../part2_review/data/raw/")
 
 classes = np.unique(y)
 weights = {
@@ -39,7 +37,10 @@ def make_default_pipeline():
 
 ## We add the classifiers we want to tryout on our pipeline
 def make_pipeline(pipeline, classifier):
-    pipeline.steps.append(["model", classifier()])
+    if classifier.__name__ == "LogisticRegression":
+        pipeline.steps.append(["model", classifier(solver="liblinear")])
+    else:
+        pipeline.steps.append(["model", classifier()])
 
 
 ## parameters used to explore and optimize our models
@@ -65,7 +66,7 @@ def make_default_parameters():
         ),
         "vect__lowercase": (False, True),
         "vect__strip_accents": (None, "unicode"),
-        "vect__stop_words": (None, stopwords.words("english")),
+        "vect__stop_words": (None, stopwords.words("french")),
         "vect__ngram_range": ((1, 1), (1, 2), (2, 2), (2, 3), (3, 3)),
         "vect__binary": (True, False),
         "tfidf__use_idf": (True, False),
@@ -82,7 +83,7 @@ def make_parameters(parameters, classifier):
     }
 
     param_lr = {
-        "model__penalty": ("l2", "none"),
+        "model__penalty": ("l2", "l1"),
         "model__class_weight": (None, "balanced", weights),
         "model__C": loguniform(1e-6, 1e6),
     }
@@ -128,9 +129,14 @@ classifiers = [
     SGDClassifier,
 ]
 
+from sklearn.metrics import f1_score, make_scorer
+
 if __name__ == "__main__":
     # multiprocessing requires the fork to happen in a __main__ protected block
     scores = {}
+
+    f1_scorer = make_scorer(f1_score, average="binary", pos_label=-1)
+
     for model in classifiers:
         pipeline = make_default_pipeline()
         make_pipeline(pipeline, model)
@@ -141,13 +147,16 @@ if __name__ == "__main__":
             parameters,
             n_jobs=-1,
             verbose=10,
-            scoring="roc_auc",
+            scoring=f1_scorer,
         )
         searchcv.fit(X, y)
-        scores[model.__name__] = searchcv.best_score_
+        scores[model.__name__] = {
+            "score": searchcv.best_score_,
+            "params": searchcv.best_params_,
+        }
         ## On save
-        # path = "../part1_speaker_recognition/gridsearch/results/part1_hrscv_"
-        path = "../part2_review/gridsearch/results/part2_hrscv_"
+        path = "../part1_speaker_recognition/gridsearch/results/part1_hrscv_"
+        # path = "../part2_review/gridsearch/results/part2_hrscv_"
         filename = path + model.__name__ + ".pkl"
         # joblib.dump(searchcv, filename)
 
