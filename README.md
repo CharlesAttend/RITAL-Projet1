@@ -56,6 +56,10 @@ _________
 - [X] Implémenter filtre de la ponctuation dans `data.py/Custom_analyzer()`
 - [X] Transférer le framework de test pour Chirac/Mitterand
 - [ ] `GridSearch` / `Pipeline`?
+- [ ] Model sequentiel (trouver les bloc into classifier) : on peut pas utiliser les HHM car on doit input 
+- [ ] Postprocess "bruit"
+- [ ] Exp sur les postprocess
+- [ ] Gridsearch sur le model BERT là avec les embeding vectoriel
 
 ```mermaid
 %%{init: {'theme': 'base', 'themeVariables': { 'pie1': '#416d9d', 'pie2': '#674028', 'pie3': '#deac58'}}}%%
