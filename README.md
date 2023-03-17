@@ -55,11 +55,15 @@ _________
 - [X] Implémenter filtre des nombres dans `data.py/Custom_analyzer()`
 - [X] Implémenter filtre de la ponctuation dans `data.py/Custom_analyzer()`
 - [X] Transférer le framework de test pour Chirac/Mitterand
-- [ ] `GridSearch` / `Pipeline`?
+- [X] `GridSearch` / `Pipeline`?
 - [ ] Model sequentiel (trouver les bloc into classifier) : on peut pas utiliser les HHM car on doit input 
+    - Soit LSTM
+    - Soit à partir des prédiction de base -> débruitage -> classifier en bloc
 - [ ] Postprocess "bruit"
 - [ ] Exp sur les postprocess
 - [ ] Gridsearch sur le model BERT là avec les embeding vectoriel
+- [ ] Réduction de dimension
+- [ ] Gridsearch préprocessing
 
 ```mermaid
 %%{init: {'theme': 'base', 'themeVariables': { 'pie1': '#416d9d', 'pie2': '#674028', 'pie3': '#deac58'}}}%%
