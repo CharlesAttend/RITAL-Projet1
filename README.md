@@ -59,11 +59,12 @@ _________
 - [ ] Model sequentiel (trouver les bloc into classifier) : on peut pas utiliser les HHM car on doit input 
     - Soit LSTM
     - Soit à partir des prédiction de base -> débruitage -> classifier en bloc
-- [ ] Postprocess "bruit"
-- [ ] Exp sur les postprocess
+- [X] Postprocess "bruit"
+- [X] Exp sur les postprocess
 - [ ] Gridsearch sur le model BERT là avec les embeding vectoriel
 - [ ] Réduction de dimension
 - [ ] Gridsearch préprocessing
+- [X] N-sentence
 
 ```mermaid
 %%{init: {'theme': 'base', 'themeVariables': { 'pie1': '#416d9d', 'pie2': '#674028', 'pie3': '#deac58'}}}%%
