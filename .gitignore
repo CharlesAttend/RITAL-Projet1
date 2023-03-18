@@ -3,3 +3,5 @@ __pycache__
 .ipynb_checkpoints
 */.ipynb_checkpoints
 archive
+part2_review/gridsearch/results/part2_hrscv_MultinomialNB.pkl
+part2_review/gridsearch/results/part2_hrscv_LogisticRegression.pkl
