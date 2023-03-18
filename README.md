@@ -51,6 +51,9 @@ _________
 ## Todo
 - [ ] Faire de la cross-validation
 - [ ] Dataviz (pour que ça CLAQUE)
+    - [ ] Odd Ratio
+    - [ ] Sur les poids https://amueller.github.io/aml/05-advanced-topics/13-text-data.html#classification
+    - [ ] Zipfs law
 - [X] Faire une fonction pour écrire les résultats des expériences quelque part (classiquement le classif report)
 - [X] Implémenter filtre des nombres dans `data.py/Custom_analyzer()`
 - [X] Implémenter filtre de la ponctuation dans `data.py/Custom_analyzer()`
@@ -65,6 +68,7 @@ _________
 - [ ] Réduction de dimension
 - [ ] Gridsearch préprocessing
 - [X] N-sentence
+- [ ] 
 
 ```mermaid
 %%{init: {'theme': 'base', 'themeVariables': { 'pie1': '#416d9d', 'pie2': '#674028', 'pie3': '#deac58'}}}%%
