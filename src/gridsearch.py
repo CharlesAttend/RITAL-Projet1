@@ -21,8 +21,8 @@ from sklearn.model_selection import HalvingRandomSearchCV
 
 # nltk.download("stopwords")
 
-# X, y = load_data_part1("../part1_speaker_recognition/data/raw/corpus.tache1.learn.utf8")
-X, y = load_movies("../part2_review/data/json_pol.txt")
+X, y = load_data_part1("../part1_speaker_recognition/data/raw/corpus.tache1.learn.utf8")
+# X, y = load_movies("../part2_review/data/json_pol.txt")
 
 classes = np.unique(y)
 weights = {
@@ -72,7 +72,7 @@ def make_default_parameters():
         "vect__lowercase": (True, False),
         "vect__strip_accents": (None, "unicode"),
         # "vect__analyzer": ("word", "char_wb"),
-        "vect__stop_words": (None, stopwords.words("english")),
+        "vect__stop_words": (None, stopwords.words("french")),
         "vect__ngram_range": ((1, 1), (1, 2), (1, 3), (1, 4), (2, 3), (2, 4)), # (1, 1), (1, 2), (1,3), (2, 3), (2, 2), (2, 3), (3, 3)
         "vect__binary": (True, False),
         "tfidf__use_idf": (True, False),
@@ -149,7 +149,7 @@ if __name__ == "__main__":
             parameters,
             n_jobs=-1,
             verbose=10,
-            scoring="roc_auc",
+            scoring=f1_scorer,
             factor=3,
         )
         searchcv.fit(X, y)
@@ -158,9 +158,9 @@ if __name__ == "__main__":
             "params": searchcv.best_params_,
         }
         ## On save
-        # path = "../part1_speaker_recognition/gridsearch/results/part1_hrscv_"
-        path = "../part2_review/gridsearch/results/part2_hrscv_"
-        filename = path + model.__name__ + ".pkl"
+        path = "../part1_speaker_recognition/gridsearch/results/part1_hrscv_"
+        # path = "../part2_review/gridsearch/results/part2_hrscv_"
+        filename = path + model.__name__ + "_f1.pkl"
         joblib.dump(searchcv, filename)
 
     print()
