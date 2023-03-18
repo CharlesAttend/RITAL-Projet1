@@ -8,7 +8,7 @@ import pandas as pd
 import json, os
 
 
-def print_score(y_test, pred, name):
+def print_score(y_test, pred, name=""):
     macro_f1 = f1_score(y_test, pred, average="macro")
     micro_f1 = f1_score(y_test, pred, average="micro")
     macro_auc = roc_auc_score(y_test, pred)
