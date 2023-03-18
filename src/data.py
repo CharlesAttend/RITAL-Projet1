@@ -1,6 +1,7 @@
-import os, re, codecs
+import os, re, codecs, json
 import importlib
 import numpy as np
+import pandas as pd
 from utils import DotDict
 from types import FunctionType
 from sklearn.feature_extraction.text import CountVectorizer
@@ -41,6 +42,19 @@ def load_data_part2(path="./part2_review/data/raw/"):
     except FileNotFoundError:
         print(os.listdir("."))
         raise FileNotFoundError
+
+
+def load_movies(path="../data/json_pol.txt"):
+    with open(path, "r") as f:
+        pol = f.read()
+    data = json.loads(pol)
+
+    train = pd.DataFrame(data["train"])
+    test = pd.DataFrame(data["test"])
+
+    # concat pour pouvoir faire différents test split
+    dataconcat = pd.concat((train, test)).reset_index(drop=True) 
+    return dataconcat[0], dataconcat[1]
 
 
 class CustomAnalyzer:
