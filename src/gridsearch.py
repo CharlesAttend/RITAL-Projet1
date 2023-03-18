@@ -22,7 +22,7 @@ from sklearn.model_selection import HalvingRandomSearchCV
 # nltk.download("stopwords")
 
 X, y = load_data_part1("../part1_speaker_recognition/data/raw/corpus.tache1.learn.utf8")
-# X, y = load_data_part2("../part2_review/data/raw/")
+X, y = load_data_part2("../part2_review/data/raw/")
 
 classes = np.unique(y)
 weights = {
@@ -39,8 +39,17 @@ def make_default_pipeline():
 def make_pipeline(pipeline, classifier):
     if classifier.__name__ == "LogisticRegression":
         pipeline.steps.append(["model", classifier(solver="liblinear")])
+    elif classifier.__name__ == "LinearSVC":
+        pipeline.steps.append(["model", classifier()])
     else:
         pipeline.steps.append(["model", classifier()])
+
+
+"""def lemmatizer(doc):
+    import spacy
+    nlp = spacy.load('fr_core_news_md')
+    # analyzer = CountVectorizer().build_analyzer()
+    return (w.lemma_ for w in nlp(doc))"""
 
 
 ## parameters used to explore and optimize our models
@@ -53,26 +62,23 @@ def make_default_parameters():
             None,
             5000,
             10000,
-            20000,
-            30000,
-            40000,
             50000,
-            75000,
             100000,
             150000,
             200000,
             250000,
             500000,
         ),
-        "vect__lowercase": (False, True),
+        "vect__lowercase": (True, False),
         "vect__strip_accents": (None, "unicode"),
+        "vect__analyzer": ("word", "char_wb"),
         "vect__stop_words": (None, stopwords.words("french")),
-        "vect__ngram_range": ((1, 1), (1, 2), (2, 2), (2, 3), (3, 3)),
+        "vect__ngram_range": ((1, 1), (1, 2), (1,3), (2, 3)), # (2, 2), (2, 3), (3, 3)
         "vect__binary": (True, False),
         "tfidf__use_idf": (True, False),
         "tfidf__norm": (None, "l1", "l2"),
         "tfidf__smooth_idf": (True, False),
-        "tfidf__sublinear_tf": (False, True),
+        "tfidf__sublinear_tf": (True, False),
     }
 
 
@@ -84,23 +90,20 @@ def make_parameters(parameters, classifier):
 
     param_lr = {
         "model__penalty": ("l2", "l1"),
-        "model__class_weight": (None, "balanced", weights),
+        "model__class_weight": (None, "balanced"),
         "model__C": loguniform(1e-6, 1e6),
+        "model__max_iter": (100, 1000, 10000)
     }
 
     param_svc = {
-        "model__class_weight": (None, "balanced", weights),
+        "model__class_weight": (None, "balanced"),
         "model__loss": ("hinge", "squared_hinge"),
         "model__C": loguniform(1e-6, 1e6),
-    }
-
-    param_ridge = {
-        "model__class_weight": (None, "balanced", weights),
-        "model__alpha": loguniform(1e-6, 1e6),
+        "model__max_iter": (1000, 10000)
     }
 
     param_sgd = {
-        "model__class_weight": (None, "balanced", weights),
+        "model__class_weight": (None, "balanced"),
         "model__loss": (
             "hinge",
             "modified_huber",
@@ -115,27 +118,26 @@ def make_parameters(parameters, classifier):
         parameters.update(param_lr)
     elif classifier.__name__ == "LinearSVC":
         parameters.update(param_svc)
-    elif classifier.__name__ == "RidgeClassifier":
-        parameters.update(param_ridge)
     elif classifier.__name__ == "SGDClassifier":
         parameters.update(param_sgd)
 
 
 classifiers = [
-    MultinomialNB,
+    # MultinomialNB,
     LogisticRegression,
     LinearSVC,
-    RidgeClassifier,
-    SGDClassifier,
+    # SGDClassifier,
 ]
 
-from sklearn.metrics import f1_score, make_scorer
+from sklearn.metrics import f1_score, make_scorer, cohen_kappa_score, matthews_corrcoef
 
 if __name__ == "__main__":
     # multiprocessing requires the fork to happen in a __main__ protected block
     scores = {}
 
     f1_scorer = make_scorer(f1_score, average="binary", pos_label=-1)
+    kappa = make_scorer(cohen_kappa_score)
+    mcc = make_scorer(matthews_corrcoef)
 
     for model in classifiers:
         pipeline = make_default_pipeline()
@@ -147,7 +149,8 @@ if __name__ == "__main__":
             parameters,
             n_jobs=-1,
             verbose=10,
-            scoring=f1_scorer,
+            scoring="roc_auc",
+            factor=3,
         )
         searchcv.fit(X, y)
         scores[model.__name__] = {
@@ -156,9 +159,9 @@ if __name__ == "__main__":
         }
         ## On save
         path = "../part1_speaker_recognition/gridsearch/results/part1_hrscv_"
-        # path = "../part2_review/gridsearch/results/part2_hrscv_"
+        path = "../part2_review/gridsearch/results/part2_hrscv_"
         filename = path + model.__name__ + ".pkl"
-        # joblib.dump(searchcv, filename)
+        joblib.dump(searchcv, filename)
 
     print()
     print(scores)
