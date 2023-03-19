@@ -68,13 +68,4 @@ _________
 - [ ] Réduction de dimension
 - [ ] Gridsearch préprocessing
 - [X] N-sentence
-- [ ] 
 
-```mermaid
-%%{init: {'theme': 'base', 'themeVariables': { 'pie1': '#416d9d', 'pie2': '#674028', 'pie3': '#deac58'}}}%%
-pie 
-    "Sky" : 75
-    "Shady side of a pyramid" : 10
-    "Sunny side of a pyramid" : 15
-    
-```

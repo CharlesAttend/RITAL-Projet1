@@ -186,7 +186,7 @@ if __name__ == "__main__":
         ## On save
         # path = "../part1_speaker_recognition/gridsearch/results/part1_hrscv_"
         path = "../part2_review/gridsearch/results/part2_hrscv_"
-        filename = path + model.__name__ + "_oui.pkl"
+        filename = path + model.__name__ + ".pkl"
         joblib.dump(searchcv, filename)
 
     print()
