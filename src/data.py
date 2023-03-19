@@ -53,7 +53,7 @@ def load_movies(path="../data/json_pol.txt"):
     test = pd.DataFrame(data["test"])
 
     # concat pour pouvoir faire différents test split
-    dataconcat = pd.concat((train, test)).reset_index(drop=True) 
+    dataconcat = pd.concat((train, test)).reset_index(drop=True)
     return dataconcat[0], dataconcat[1]
 
 

@@ -35,7 +35,7 @@ def print_score(y_test, pred, name=""):
 
 def fit_eval(X_train, y_train, X_test, y_test, balanced=None):
     """
-    Entraine et évalue les algorithmes classiques de classification à partir des 
+    Entraine et évalue les algorithmes classiques de classification à partir des
     différents sets de données.
 
     Parameters
