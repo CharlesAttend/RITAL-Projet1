@@ -17,12 +17,29 @@ from sklearn.utils.fixes import loguniform
 from sklearn.pipeline import Pipeline
 from sklearn.experimental import enable_halving_search_cv
 from sklearn.model_selection import HalvingRandomSearchCV
-
+from nltk import word_tokenize
+from nltk.stem import WordNetLemmatizer
 
 # nltk.download("stopwords")
 
-X, y = load_data_part1("../part1_speaker_recognition/data/raw/corpus.tache1.learn.utf8")
-# X, y = load_movies("../part2_review/data/json_pol.txt")
+
+class LemmaTokenizer(object):
+    def __init__(self):
+        self.wnl = WordNetLemmatizer()
+
+    def __call__(self, articles):
+        return [self.wnl.lemmatize(t) for t in word_tokenize(articles)]
+
+
+"""def lemmatizer(doc):
+    import spacy
+    nlp = spacy.load('fr_core_news_md')
+    # analyzer = CountVectorizer().build_analyzer()
+    return (w.lemma_ for w in nlp(doc))"""
+
+
+# X, y = load_data_part1("../part1_speaker_recognition/data/raw/corpus.tache1.learn.utf8")
+X, y = load_data_part2("../part2_review/data/raw/")
 
 classes = np.unique(y)
 weights = {
@@ -45,16 +62,10 @@ def make_pipeline(pipeline, classifier):
         pipeline.steps.append(["model", classifier()])
 
 
-"""def lemmatizer(doc):
-    import spacy
-    nlp = spacy.load('fr_core_news_md')
-    # analyzer = CountVectorizer().build_analyzer()
-    return (w.lemma_ for w in nlp(doc))"""
-
-
-## parameters used to explore and optimize our models
-## default ones for the bag-of-words model
 def make_default_parameters():
+    """parameters used to explore and optimize our models
+    default ones for the bag-of-words model
+    """
     return {
         # "vect__min_df": (0.05, 0.15, 1),
         "vect__max_df": (0.5, 0.75, 1.0),
@@ -71,9 +82,20 @@ def make_default_parameters():
         ),
         "vect__lowercase": (True, False),
         "vect__strip_accents": (None, "unicode"),
-        # "vect__analyzer": ("word", "char_wb"),
-        "vect__stop_words": (None, stopwords.words("french")),
-        "vect__ngram_range": ((1, 1), (1, 2), (1, 3), (1, 4), (2, 3), (2, 4)), # (1, 1), (1, 2), (1,3), (2, 3), (2, 2), (2, 3), (3, 3)
+        "vect__analyzer": ("word", "char_wb"),
+        "vect__stop_words": (None, stopwords.words("english")),
+        # "vect__tokenizer": (None, LemmaTokenizer()),
+        "vect__ngram_range": (
+            (1, 1),
+            (1, 2),
+            (1, 3),
+            (1, 4),
+            (2, 3),
+            (2, 4),
+            (5, 7),
+            (10, 10),
+            (10, 15),
+        ),  # (1, 1), (1, 2), (1,3), (2, 3), (2, 2), (2, 3), (3, 3)
         "vect__binary": (True, False),
         "tfidf__use_idf": (True, False),
         "tfidf__norm": (None, "l1", "l2"),
@@ -83,6 +105,9 @@ def make_default_parameters():
 
 
 def make_parameters(parameters, classifier):
+    """parameters used to explore and optimize our models
+    depends of classifier used
+    """
     param_nb = {
         "model__alpha": loguniform(1e-10, 1000),
         "model__fit_prior": (True, False),
@@ -92,14 +117,14 @@ def make_parameters(parameters, classifier):
         "model__penalty": ("l2", "l1"),
         "model__class_weight": (None, "balanced"),
         "model__C": loguniform(1e-6, 1e6),
-        "model__max_iter": (100, 1000, 10000)
+        "model__max_iter": (100, 1000, 10000),
     }
 
     param_svc = {
         "model__class_weight": (None, "balanced"),
         "model__loss": ("hinge", "squared_hinge"),
         "model__C": loguniform(1e-6, 1e6),
-        "model__max_iter": (1000, 10000)
+        "model__max_iter": (1000, 10000),
     }
 
     param_sgd = {
@@ -147,9 +172,10 @@ if __name__ == "__main__":
         searchcv = HalvingRandomSearchCV(
             pipeline,
             parameters,
+            cv=8,
             n_jobs=-1,
             verbose=10,
-            scoring=f1_scorer,
+            scoring="roc_auc",
             factor=3,
         )
         searchcv.fit(X, y)
@@ -158,9 +184,9 @@ if __name__ == "__main__":
             "params": searchcv.best_params_,
         }
         ## On save
-        path = "../part1_speaker_recognition/gridsearch/results/part1_hrscv_"
-        # path = "../part2_review/gridsearch/results/part2_hrscv_"
-        filename = path + model.__name__ + "_f1.pkl"
+        # path = "../part1_speaker_recognition/gridsearch/results/part1_hrscv_"
+        path = "../part2_review/gridsearch/results/part2_hrscv_"
+        filename = path + model.__name__ + "_oui.pkl"
         joblib.dump(searchcv, filename)
 
     print()

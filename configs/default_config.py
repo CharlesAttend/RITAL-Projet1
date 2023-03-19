@@ -1,5 +1,13 @@
 import string
+from nltk import word_tokenize
+from nltk.stem import WordNetLemmatizer 
 
+class LemmaTokenizer(object):
+    def init(self):
+        self.wnl = WordNetLemmatizer()
+    def call(self, articles):
+        return [self.wnl.lemmatize(t) for t in word_tokenize(articles)]
+        
 def lemmatizer():
     pass
 
