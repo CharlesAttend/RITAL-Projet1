@@ -1,5 +1,5 @@
 # RITAL - Projet
-@CharlesAttend & @dataymeric
+(@CharlesAttend)[https://charles.vin] & (@dataymeric)[https://github.com/dataymeric]
 
 ```
 .
