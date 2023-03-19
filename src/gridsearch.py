@@ -82,7 +82,7 @@ def make_default_parameters():
         ),
         "vect__lowercase": (True, False),
         "vect__strip_accents": (None, "unicode"),
-        "vect__analyzer": ("word", "char_wb"),
+        # "vect__analyzer": ("word", "char_wb"),
         "vect__stop_words": (None, stopwords.words("english")),
         # "vect__tokenizer": (None, LemmaTokenizer()),
         "vect__ngram_range": (
